@@ -81,16 +81,15 @@ function extractLinks(filePaths) {
                     if (link.includes('tag:case-study')) category = 'caseStudies';
                     if (link.includes('tag:database')) category = 'databases';
                     if (!link.includes('target=')) link = `${link}{:target="_blank"}`; // make it open in a new tab
-                    // TODO: the last line would mess up links that have a tag but no target="_blank"
+                    // TODO: the last line would maybe mess up links that have a tag but no target="_blank". Test then add extra logic.
 
                     ///// construct the backlink
                     const backlinkTextArr = link.match(/\[([^\]]+)\]/);
                     const encodedText = encodeURIComponent(backlinkTextArr[1])
-                    const baseUrl = "https://src-handbook-infrastructure-team.github.io/"; // base URL
+                    const baseUrl = "https://src-handbook-infrastructure-team.github.io/";
                     let panelText = ''
                     // get the rest of the URL using the filepath
                     let parts = filePath.split("/");
-                    console.log("full parts", parts)
                     parts = parts.slice(2); // takes off "something/workspaces" from start of path
                     if (parts[parts.length - 1] === "index.md") {
                         parts.pop();
@@ -99,8 +98,8 @@ function extractLinks(filePaths) {
                         panelText = `?panel=${panelFileName}`
                     }
                     const updatedFilePath = parts.join("/");
-                    const url = path.join(baseUrl, updatedFilePath, panelText)
-                    const backlink = `${url}#:~:text=${encodedText}`;
+                    const url = path.join(updatedFilePath, panelText)
+                    const backlink = `${baseUrl}${url}#:~:text=${encodedText}`;
 
                     allLinks[category].push([link, backlink]);
                 });
