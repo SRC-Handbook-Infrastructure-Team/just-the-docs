@@ -90,7 +90,8 @@ function extractLinks(filePaths) {
                     let panelText = ''
                     // get the rest of the URL using the filepath
                     let parts = filePath.split("/");
-                    parts = parts.slice(2); // takes off "something/workspaces" from start of path
+                    console.log("full parts", parts)
+                    // parts = parts.slice(2); // takes off "something/workspaces" from start of path
                     if (parts[parts.length - 1] === "index.md") {
                         parts.pop();
                     } else if (ispanel) {
@@ -161,7 +162,6 @@ These are all the external links mentioned in the body of the text and in the si
             if (items.length > 0) {
                 linksContent += `### ${categoryToHeading[category]}\n`; // Add heading with category name
                 items.forEach(item => {
-                    // [View it on GitHub][Just the Docs repo]{: .btn .fs-5 .mb-4 .mb-md-0 }
                     itemWithBacklink = `${item[0]} [view in context](${item[1]}){: .backlink }`
                     linksContent += `- ${itemWithBacklink}\n`; // Add each item as a list
                 });
