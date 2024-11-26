@@ -17,7 +17,6 @@ a[href^="http"] {
 
 /* Internal links have a different icon */
 a[href^="https://src-handbook-infrastructure-team"]::after {
-  content: " 🔗";
   text-decoration: none; /* TODO: this isnt going away */
 }
 
@@ -33,7 +32,6 @@ a[href^="http"]:hover {
 }
 
 .backlink {
-  content: "🔗"; /* Icon for backlink */
   text-decoration: none;
   font-size: 0.7em; /* Smaller size for the icon */
   margin-left: 0.3em; /* Space between text and icon */
