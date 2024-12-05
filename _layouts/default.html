@@ -129,6 +129,15 @@
       document.getElementById("mainContentWrap").style.width = '100%';
       document.querySelector(".main").classList.remove("content-shift");
       document.getElementById("sideContent").innerHTML = ""; // Clear content
+
+      // reset URL 
+      const currentUrl = window.location.href;
+      const queryStringIndex = currentUrl.indexOf('?panel=');
+      if (queryStringIndex !== -1) {
+        // Remove the query string by taking the part of the URL before "?panel="
+        const newUrl = currentUrl.substring(0, queryStringIndex);
+        window.history.replaceState(null, '', newUrl);
+      }
     }
 
     ////////// Resizing sidepanel logic
