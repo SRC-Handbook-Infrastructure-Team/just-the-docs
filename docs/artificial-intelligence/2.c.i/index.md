@@ -13,7 +13,7 @@ nav_order: 1
 
 When machines replace humans in [making decisions with such great impact](javascript:openPanel('high-impact-applications')){: .btn .btn-blue}, it is important for their outcomes to remain fair. But what is algorithmic fairness?
 
-### <u> Procedural Equality vs. Equity </u>
+## Procedural Equality vs. Equity
 One common criteria for fairness within the technical community is procedural equality.
 
 - **Procedural Equality**: Everyone is subject to the same decision-making process. 
