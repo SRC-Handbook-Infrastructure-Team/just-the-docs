@@ -83,7 +83,6 @@
   z-index: 1;
   position: absolute;
   right: 0;
-  // top: $header-height;
   height: 100%;
   background-color: #D2E3FC;
 
@@ -108,6 +107,16 @@
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+.resizer {
+  width: 5px;
+  background-color:  #a0c6ff;
+  cursor: ew-resize;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
 }
 
 // Content adjustments for side panel and main content area

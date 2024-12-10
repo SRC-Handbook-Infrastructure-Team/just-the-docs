@@ -21,7 +21,7 @@
     <!-- Main content area -->
     <div class="main-content-area">
       <div class="main" id="top">
-        
+
         <div class="main-content-wrap" id="mainContentWrap">
           {% include components/header.html %} <!--SEARCH IS HERE-->
           {% include components/breadcrumbs.html %}
@@ -53,6 +53,7 @@
 
       <!-- Side Panel for Dynamic Markdown Content, positioned alongside main content -->
       <div id="sidePanel" class="side-panel">
+        <div class="resizer"></div>
         <button onclick="closePanel()">×</button>
         <div id="sideContent">
           <!-- Dynamic content will be loaded here based on link click -->
@@ -69,15 +70,12 @@
       // Retrieve the panel path from the URL parameter
       const urlParams = new URLSearchParams(window.location.search);
       const panelPath = urlParams.get("panel");
-      console.log("HERE")
 
       // If a panel path is present, open the panel
       if (panelPath) {
-        console.log("bye")
         openPanel(panelPath);
       } else {
         // Otherwise, check the path after "/docs/"
-         console.log("REACHED HERE")
         const basePath = "{{ site.baseurl }}/docs/";
         const path = window.location.pathname.replace(basePath, "");
 
@@ -85,9 +83,9 @@
         if (path.includes("panel")) {
           openPanel(path);
         }
-       
+
       }
-    } 
+    }
 
     // Function to open the side panel with content from a Markdown file
     function openPanel(panelName) {
@@ -99,6 +97,16 @@
       // Open the side panel and fetch the HTML content
       document.getElementById("mainContentWrap").classList.add("active");
       document.getElementById("sidePanel").classList.add("active");
+
+      // Retrieve and set the last saved width from localStorage
+      const savedWidth = localStorage.getItem("sidePanelWidth");
+      if (savedWidth) {
+        const panelElement = document.getElementById("sidePanel");
+        panelElement.style.width = `${savedWidth}px`;
+        updateMainContentWidth(); // Adjust the main content width immediately
+      }
+
+      // Fetch and populate panel content
       fetch(fullPath)
         .then(response => response.text())
         .then(data => {
@@ -116,10 +124,68 @@
     // Function to close the side panel
     function closePanel() {
       document.getElementById("mainContentWrap").classList.remove("active");
+      document.getElementById("sidePanel").style.width = '';
       document.getElementById("sidePanel").classList.remove("active");
+      document.getElementById("mainContentWrap").style.width = '100%';
       document.querySelector(".main").classList.remove("content-shift");
       document.getElementById("sideContent").innerHTML = ""; // Clear content
+
+      // reset URL 
+      const currentUrl = window.location.href;
+      const queryStringIndex = currentUrl.indexOf('?panel=');
+      if (queryStringIndex !== -1) {
+        // Remove the query string by taking the part of the URL before "?panel="
+        const newUrl = currentUrl.substring(0, queryStringIndex);
+        window.history.replaceState(null, '', newUrl);
+      }
     }
+
+    ////////// Resizing sidepanel logic
+    const sidePanel = document.querySelector('.side-panel');
+    const mainContentWrap = document.querySelector('.main-content-wrap');
+
+    let isResizing = false;
+
+    const updateMainContentWidth = () => {
+      const sidePanelWidth = parseFloat(window.getComputedStyle(sidePanel).width);
+      mainContentWrap.style.width = `calc(100% - ${sidePanelWidth}px + 10vw)`;
+    };
+
+    // Initialize main content width when the side panel opens
+    sidePanel.addEventListener('transitionend', () => {
+      if (sidePanel.classList.contains('active')) {
+        updateMainContentWidth();
+      }
+    });
+
+    // Handle resizing
+    document.querySelector('.resizer').addEventListener('mousedown', () => {
+      isResizing = true;
+      document.body.style.cursor = 'ew-resize';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+
+      const newWidth = window.innerWidth - e.clientX;
+      sidePanel.style.width = `${newWidth}px`;
+      updateMainContentWidth();
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isResizing) {
+        isResizing = false;
+        document.body.style.cursor = '';
+
+        // Save the resized width to localStorage
+        const finalWidth = parseFloat(window.getComputedStyle(sidePanel).width);
+        localStorage.setItem("sidePanelWidth", finalWidth);
+
+        // Explicitly set the final width
+        sidePanel.style.width = `${finalWidth}px`;
+      }
+    });
+
   </script>
 
   {% if site.mermaid %}

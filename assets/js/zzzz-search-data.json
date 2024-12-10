@@ -46,38 +46,40 @@ permalink: /assets/js/search-data.json
             {%- capture url -%}{{ url | append: '#' | append: id }}{%- endcapture -%}
           {%- endif -%}
         {%- endif -%}
-  {%- unless i == 0 -%},{%- endunless -%}
-  "{{ i }}": {
-    "doc": {{ page.title | jsonify }},
-    "title": {{ title | jsonify }},
-    "content": {{ content | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | jsonify }},
-    {%- capture final_url -%}
-    {%- if page.sidepanel -%}
-        {%- assign url_parts = page.url | split: '/' -%}
-        {%- assign url_parts_trimmed = url_parts | slice: 0, url_parts.size -%}
-        {%- assign url_parts_trimmed_size = url_parts.size | minus : 1 -%}
-        {{ url_parts_trimmed | slice: 0, url_parts_trimmed_size | join: '/' }}/?panel={{ url_parts | last }}
-    {%- else -%}
-        {{ url }}
-    {%- endif -%}
-    {%- endcapture -%}
-    "url": "{{ final_url | relative_url }}",
-    {% include lunr/custom-data.json page=page %}
-    "relUrl": "{{ url }}"
-  }
+      {%- unless i == 0 -%},{%- endunless -%}
+      "{{ i }}": {
+        "doc": {{ page.title | jsonify }},
+        "title": {{ title | jsonify }},
+        "content": {{ content | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | jsonify }},
+        {%- capture final_url -%}
+        {%- if page.sidepanel -%}
+            {%- assign url_parts = page.url | split: '/' -%}
+            {%- assign url_parts_trimmed = url_parts | slice: 0, url_parts.size -%}
+            {%- assign url_parts_trimmed_size = url_parts.size | minus : 1 -%}
+            {{ url_parts_trimmed | slice: 0, url_parts_trimmed_size | join: '/' }}/?panel={{ url_parts | last }}
+        {%- else -%}
+            {{ url }}
+        {%- endif -%}
+        {%- endcapture -%}
+        "url": "{{ final_url | relative_url }}",
+        {% include lunr/custom-data.json page=page %}
+        "relUrl": "{{ url }}"
+      }
         {%- assign i = i | plus: 1 -%}
       {%- endfor -%}
       {%- unless title_found -%}
-  {%- unless i == 0 -%},{%- endunless -%}
-  "{{ i }}": {
-    "doc": {{ page.title | jsonify }},
-    "title": {{ page.title | jsonify }},
-    "content": {{ parts[0] | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | jsonify }},
-    "url": "{{ page.url | relative_url }}",
-    {% include lunr/custom-data.json page=page %}
-    "relUrl": "{{ page.url }}"
-  }
+      {%- unless page.sidepanel -%}
+        {%- unless i == 0 -%},{%- endunless -%}
+        "{{ i }}": {
+          "doc": {{ page.title | jsonify }},
+          "title": {{ page.title | jsonify }},
+          "content": {{ parts[0] | replace: '</h', ' . </h' | replace: '<hr', ' . <hr' | replace: '</p', ' . </p' | replace: '<ul', ' . <ul' | replace: '</ul', ' . </ul' | replace: '<ol', ' . <ol' | replace: '</ol', ' . </ol' | replace: '</tr', ' . </tr' | replace: '<li', ' | <li' | replace: '</li', ' | </li' | replace: '</td', ' | </td' | replace: '<td', ' | <td' | replace: '</th', ' | </th' | replace: '<th', ' | <th' | strip_html | remove: 'Table of contents' | normalize_whitespace | replace: '. . .', '.' | replace: '. .', '.' | replace: '| |', '|' | append: ' ' | jsonify }},
+          "url": "{{ page.url | relative_url }}",
+          {% include lunr/custom-data.json page=page %}
+          "relUrl": "{{ page.url }}"
+        }
         {%- assign i = i | plus: 1 -%}
+      {%- endunless -%}
       {%- endunless -%}
     {%- endif -%}
   {%- endfor -%}
