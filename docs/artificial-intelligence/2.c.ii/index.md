@@ -15,7 +15,7 @@ At any level, it is impossible to achieve all the definitions simultaneously. De
 
 Algorithmic justice isn’t achieved by merely satisfying specific statistical definitions of fairness. 
 
-Instead, algorithmic justice methodologies decenter purely technical analysis of algorithms, inputs, and outputs and emphasizes [**social and political factors and approaches**](javascript:openPanel('sociopolitical-factors-and-approaches')).
+Instead, algorithmic justice methodologies decenter purely technical analysis of algorithms, inputs, and outputs and emphasizes [social and political factors and approaches](javascript:openPanel('sociopolitical-factors-and-approaches')){: .btn .btn-purple}.
 
 More reductively:
 
@@ -25,7 +25,7 @@ We can understand “justice” through the lens of various philosophical defini
 
 ### Justice as recognition
     
-The [**recognition dimension of justice**](javascript:openPanel('failures-of-recognition')) focuses on how automated decision systems affect how individuals and groups relate to each other on an interpersonal level.
+The [recognition dimension of justice](javascript:openPanel('failures-of-recognition')){: .btn .btn-purple} focuses on how automated decision systems affect how individuals and groups relate to each other on an interpersonal level.
 
 Injustice under the recognition dimension can manifest through technologies that deny or question the equal social worth or standing of individuals in social (often more informal) interactions.
     
@@ -33,7 +33,7 @@ For example, automated technologies like search engines often produce outputs th
 
 ### Justice as distribution
 
-The [**distribution dimension of justice**](javascript:openPanel('failures-of-distribution')) examines how systems affect the **distribution** of assets and opportunities across society. Below are three ideas on how to to achieve just distribution:
+The [distribution dimension of justice](javascript:openPanel('failures-of-distribution')){: .btn .btn-purple} examines how systems affect the **distribution** of assets and opportunities across society. Below are three ideas on how to to achieve just distribution:
 
 1. Justice as **sufficiency**: set a common baseline of access to essential assets for a decent/good life (e.g., housing, employment, health, basic means of subsistence, UBI)
 
